@@ -1,0 +1,151 @@
+
+GET http://127.0.0.1:8000/zapatos/
+
+###
+#  PROVEEDORES
+
+GET http://127.0.0.1:8000/zapatos/prov_all
+
+###
+GET http://127.0.0.1:8000/zapatos/prov/1
+
+###
+POST http://127.0.0.1:8000/zapatos/prov_add
+Content-Type: application/json
+
+{
+  "nombre": "Puma Latam S.A.",
+  "contacto": "Jorge Ruiz",
+  "telefono": "3009998877",
+  "email": "ventas@pumacol.com",
+  "ciudad": "Bogotá",
+  "pais": "Colombia"
+}
+
+###
+PUT http://127.0.0.1:8000/zapatos/prov_update/1
+Content-Type: application/json
+
+{
+  "nombre": "Nike Colombia S.A.",
+  "contacto": "Carlos Mejía",
+  "telefono": "3001234567",
+  "email": "ventas@nikecol.com",
+  "ciudad": "Bogotá",
+  "pais": "Colombia"
+}
+
+###
+DELETE http://127.0.0.1:8000/zapatos/prov_borrar/6
+
+###
+#  CLIENTES
+GET http://127.0.0.1:8000/zapatos/cli_all
+
+###
+GET http://127.0.0.1:8000/zapatos/cli/1
+
+###
+POST http://127.0.0.1:8000/zapatos/cli_add
+Content-Type: application/json
+
+{
+  "nombre": "Laura",
+  "apellido": "Ospina",
+  "telefono": "3177776655",
+  "email": "laura.o@gmail.com",
+  "direccion": "Cra 9 # 12-34",
+  "ciudad": "Cali"
+}
+
+###
+PUT http://127.0.0.1:8000/zapatos/cli_update/1
+Content-Type: application/json
+
+{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "telefono": "3101112233",
+  "email": "juan.nuevo@gmail.com",
+  "direccion": "Cra 5 # 10-20",
+  "ciudad": "Cali"
+}
+
+###
+DELETE http://127.0.0.1:8000/zapatos/cli_borrar/11
+
+###
+#  PEDIDOS
+
+GET http://127.0.0.1:8000/zapatos/ped_all
+
+###
+GET http://127.0.0.1:8000/zapatos/ped/1
+
+###
+POST http://127.0.0.1:8000/zapatos/ped_add
+Content-Type: application/json
+
+{
+  "id_cliente": 1,
+  "fecha_pedido": "2025-03-14",
+  "estado": "Pendiente",
+  "total": 0
+}
+
+###
+PUT http://127.0.0.1:8000/zapatos/ped_update/1
+Content-Type: application/json
+
+{
+  "id_cliente": 1,
+  "fecha_pedido": "2025-03-14",
+  "estado": "Entregado",
+  "total": 1470000
+}
+
+###
+DELETE http://127.0.0.1:8000/zapatos/ped_borrar/11
+
+###
+
+#  PRODUCTOS
+GET http://127.0.0.1:8000/zapatos/prod_all
+
+###
+GET http://127.0.0.1:8000/zapatos/prod/1
+
+###
+POST http://127.0.0.1:8000/zapatos/prod_add
+Content-Type: application/json
+
+{
+  "nombre": "Air Jordan 1 High OG",
+  "marca": "Nike",
+  "categoria": "Lifestyle",
+  "talla": 42.0,
+  "color": "Rojo/Negro",
+  "precio": 950000,
+  "stock": 5,
+  "import_style": "Importado",
+  "id_proveedor": 1
+}
+
+###
+PUT http://127.0.0.1:8000/zapatos/prod_update/1
+Content-Type: application/json
+
+{
+  "nombre": "Air Jordan 1 High OG",
+  "marca": "Nike",
+  "categoria": "Lifestyle",
+  "talla": 43.0,
+  "color": "Rojo/Negro",
+  "precio": 980000,
+  "stock": 8,
+  "import_style": "Importado",
+  "id_proveedor": 1
+}
+
+###
+DELETE http://127.0.0.1:8000/zapatos/prod_borrar/21
