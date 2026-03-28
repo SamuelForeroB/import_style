@@ -1,0 +1,112 @@
+<!-- TOAST -->
+@if (toast()) {
+  <div class="toast">{{ toast() }}</div>
+}
+
+<!-- CART OVERLAY -->
+<div class="overlay" [class.show]="cartOpen()" (click)="toggleCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" [class.open]="cartOpen()">
+  <div class="cart-head">
+    <h3>🛒 Tu Carrito ({{ cartCount }})</h3>
+    <button (click)="toggleCart()">✕</button>
+  </div>
+  @if (cart().length === 0) {
+    <div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío</p></div>
+  } @else {
+    <div class="cart-items">
+      @for (item of cart(); track $index; let i = $index) {
+        <div class="cart-item">
+          <span class="cart-emoji">{{ item.emoji }}</span>
+          <div class="cart-info">
+            <p class="cart-name">{{ item.name }}</p>
+            <p class="cart-price">${{ item.price | number }}</p>
+          </div>
+          <button class="remove-btn" (click)="removeFromCart(i)">✕</button>
+        </div>
+      }
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="total-val">${{ cartTotal | number }}</span>
+      </div>
+      <button class="btn-primary" style="width:100%">Comprar Ahora</button>
+    </div>
+  }
+</div>
+
+<!-- HEADER PÁGINA -->
+<section class="page-hero">
+  <div class="container">
+    <span class="section-tag">✦ Catálogo</span>
+    <h1>Nuestros Productos</h1>
+    <p>{{ allProducts.length }} modelos disponibles — Nike, Adidas y más</p>
+  </div>
+</section>
+
+<!-- FILTROS -->
+<section class="filters-bar">
+  <div class="container filters-inner">
+    <div class="cats">
+      @for (cat of categories; track cat) {
+        <button class="cat-btn" [class.active]="activeCat() === cat" (click)="activeCat.set(cat)">
+          {{ cat }}
+        </button>
+      }
+    </div>
+    <div class="filter-right">
+      <input class="search-input" type="text" placeholder="🔍 Buscar..." [value]="search()" (input)="search.set($any($event.target).value)">
+      <select class="sort-select" [value]="sortBy()" (change)="sortBy.set($any($event.target).value)">
+        <option value="default">Ordenar por</option>
+        <option value="price-asc">Menor precio</option>
+        <option value="price-desc">Mayor precio</option>
+        <option value="stock">Más stock</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- GRID PRODUCTOS -->
+<section class="catalog">
+  <div class="container">
+    <p class="result-count">{{ filtered().length }} productos encontrados</p>
+    <div class="products-grid">
+      @for (p of filtered(); track p.id) {
+        <div class="product-card">
+          <div class="card-badge" [ngClass]="badgeColor(p.import_style)">{{ p.import_style }}</div>
+          <div class="card-img">{{ p.emoji }}</div>
+          <div class="card-body">
+            <span class="card-brand">{{ p.brand }}</span>
+            <h3 class="card-name">{{ p.name }}</h3>
+            <div class="card-meta">
+              <span class="meta-item">📏 Talla {{ p.size }}</span>
+              <span class="meta-item">🎨 {{ p.color }}</span>
+            </div>
+            <div class="card-stock" [ngClass]="stockColor(p.stock)">
+              @if (p.stock <= 4) { ⚠️ Solo {{ p.stock }} disponibles }
+              @else { ✅ Stock: {{ p.stock }} unidades }
+            </div>
+            <div class="card-footer">
+              <span class="card-price">${{ p.price | number }}</span>
+              <button class="btn-add" (click)="addToCart(p)">🛒 Agregar</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    @if (filtered().length === 0) {
+      <div class="no-results">
+        <span>🔍</span>
+        <p>No se encontraron productos</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- FAB CARRITO -->
+<button class="fab-cart" (click)="toggleCart()">
+  🛒
+  @if (cartCount > 0) { <span class="fab-badge">{{ cartCount }}</span> }
+</button>

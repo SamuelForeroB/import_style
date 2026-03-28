@@ -1,0 +1,121 @@
+<!-- PORTADA / HERO -->
+<section class="hero">
+  <div class="hero-fondo">
+    <div class="circulo c1"></div>
+    <div class="circulo c2"></div>
+  </div>
+
+  <div class="hero-texto">
+    <p class="hero-etiqueta">✦ Nueva Colección 2025</p>
+    <h1>
+      Las Mejores<br>
+      <span class="texto-dorado">Zapatillas</span><br>
+      Te Esperan.
+    </h1>
+    <p class="hero-sub">
+      Importadas, originales y con estilo. Encuentra tu par perfecto en ImportStyle.
+    </p>
+    <div class="hero-botones">
+      <a routerLink="/productos" class="btn-primary">Ver Catálogo →</a>
+      <a routerLink="/nosotros"  class="btn-outline">Quiénes Somos</a>
+    </div>
+  </div>
+
+  <div class="hero-imagen">
+    <div class="brillo"></div>
+    <div class="zapato-grande">👟</div>
+    <div class="chip chip1">Air Jordan</div>
+    <div class="chip chip2">$950.000</div>
+  </div>
+</section>
+
+<!-- VENTAJAS -->
+<section class="ventajas">
+  <div class="container">
+    <div class="ventajas-grid">
+      @for (v of ventajas; track v.titulo) {
+        <div class="ventaja-card">
+          <span class="ventaja-icono">{{ v.icono }}</span>
+          <div>
+            <h3>{{ v.titulo }}</h3>
+            <p>{{ v.texto }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ZAPATOS DESTACADOS -->
+<section class="destacados">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">✦ Productos</span>
+      <h2>Modelos Destacados</h2>
+      <p>Selección de nuestras zapatillas más exclusivas</p>
+    </div>
+
+    <div class="zapatos-grid">
+      @for (z of zapatos; track z.nombre) {
+        <div class="zapato-card">
+
+          <!-- Badge tipo -->
+          <div class="zapato-badge"
+            [class.badge-limitada]="z.tipo === 'Edición Limitada'"
+            [class.badge-importado]="z.tipo === 'Importado'"
+            [class.badge-nacional]="z.tipo === 'Nacional'">
+            {{ z.tipo }}
+          </div>
+
+          <!-- Imagen emoji -->
+          <div class="zapato-imagen">{{ z.emoji }}</div>
+
+          <!-- Info -->
+          <div class="zapato-info">
+            <span class="zapato-marca">{{ z.marca }}</span>
+            <h3 class="zapato-nombre">{{ z.nombre }}</h3>
+            <div class="zapato-detalles">
+              <span>🎨 {{ z.color }}</span>
+              <span>📏 Talla {{ z.talla }}</span>
+            </div>
+            <div class="zapato-pie">
+              <span class="zapato-precio">${{ z.precio | number }}</span>
+              <a routerLink="/productos" class="btn-ver">Ver más →</a>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+
+    <div class="ver-todo">
+      <a routerLink="/productos" class="btn-primary">Ver Todos los Productos →</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARCAS -->
+<section class="marcas">
+  <div class="marcas-titulo">Marcas que Manejamos</div>
+  <div class="marcas-pista">
+    <div class="marcas-scroll">
+      @for (m of marcas; track m) { <span class="marca">{{ m }}</span> }
+      @for (m of marcas; track m) { <span class="marca">{{ m }}</span> }
+    </div>
+  </div>
+</section>
+
+<!-- BANNER OFERTA -->
+<section class="oferta">
+  <div class="container">
+    <div class="oferta-caja">
+      <div class="oferta-texto">
+        <span class="oferta-etiqueta">⚡ Oferta Especial</span>
+        <h2>Hasta 30% OFF en zapatillas Nike</h2>
+        <p>Por tiempo limitado. Usa el código <strong>STYLE30</strong></p>
+        <a routerLink="/productos" class="btn-primary">Aprovechar Oferta</a>
+      </div>
+      <div class="oferta-zapato">👟</div>
+    </div>
+  </div>
+</section>
