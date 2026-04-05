@@ -258,3 +258,4 @@ async def borrarPed(id_ped: int, db: Session = Depends(get_db)):
     db.delete(pedido)
     db.commit()
     return f"El campo {id_ped} ha sido borrado"
+

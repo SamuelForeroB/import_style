@@ -1,0 +1,18 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <h1>Import Style</h1>
+      <p>GESTIÓN DE INVENTARIO</p>
+    </div>
+    <div class="form-group">
+      <label>Usuario</label>
+      <input type="email" [(ngModel)]="email" placeholder="correo@gmail.com" />
+    </div>
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" [(ngModel)]="password" placeholder="••••••••" (keyup.enter)="login()" />
+    </div>
+    <button class="btn-login" (click)="login()">INGRESAR</button>
+    <p class="login-error" *ngIf="error">{{ error }}</p>
+  </div>
+</div>

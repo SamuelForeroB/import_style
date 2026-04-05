@@ -1,9 +1,42 @@
-
-GET http://127.0.0.1:8000/zapatos/
+### PRODUCTOS
+GET http://127.0.0.1:8000/zapatos/prod_all
 
 ###
-#  PROVEEDORES
+GET http://127.0.0.1:8000/zapatos/prod/1
 
+###
+POST http://127.0.0.1:8000/zapatos/prod_add
+Content-Type: application/json
+
+{
+  "nombre": "Air Jordan 1",
+  "marca": "Nike",
+  "talla": "43",
+  "color": "Rojo/Negro",
+  "precio": 520000,
+  "stock": 5,
+  "id_proveedor": 1
+}
+
+###
+PUT http://127.0.0.1:8000/zapatos/prod_update/1
+Content-Type: application/json
+
+{
+  "nombre": "Air Jordan 1",
+  "marca": "Nike",
+  "talla": "43",
+  "color": "Rojo/Negro",
+  "precio": 550000,
+  "stock": 8,
+  "id_proveedor": 1
+}
+
+###
+DELETE http://127.0.0.1:8000/zapatos/prod_borrar/1
+
+###
+### PROVEEDORES
 GET http://127.0.0.1:8000/zapatos/prov_all
 
 ###
@@ -14,10 +47,10 @@ POST http://127.0.0.1:8000/zapatos/prov_add
 Content-Type: application/json
 
 {
-  "nombre": "Puma Latam S.A.",
+  "nombre": "Puma Latam",
   "contacto": "Jorge Ruiz",
   "telefono": "3009998877",
-  "email": "ventas@pumacol.com",
+  "email": "ventas@puma.com",
   "ciudad": "Bogotá",
   "pais": "Colombia"
 }
@@ -30,7 +63,7 @@ Content-Type: application/json
   "nombre": "Nike Colombia S.A.",
   "contacto": "Carlos Mejía",
   "telefono": "3001234567",
-  "email": "ventas@nikecol.com",
+  "email": "ventas@nike.com",
   "ciudad": "Bogotá",
   "pais": "Colombia"
 }
@@ -39,7 +72,7 @@ Content-Type: application/json
 DELETE http://127.0.0.1:8000/zapatos/prov_borrar/6
 
 ###
-#  CLIENTES
+### CLIENTES
 GET http://127.0.0.1:8000/zapatos/cli_all
 
 ###
@@ -50,12 +83,10 @@ POST http://127.0.0.1:8000/zapatos/cli_add
 Content-Type: application/json
 
 {
-  "nombre": "Laura",
-  "apellido": "Ospina",
+  "nombre": "Laura Ospina",
   "telefono": "3177776655",
-  "email": "laura.o@gmail.com",
-  "direccion": "Cra 9 # 12-34",
-  "ciudad": "Cali"
+  "email": "laura@gmail.com",
+  "ciudad": "Mosquera"
 }
 
 ###
@@ -63,89 +94,58 @@ PUT http://127.0.0.1:8000/zapatos/cli_update/1
 Content-Type: application/json
 
 {
-  "nombre": "Juan",
-  "apellido": "Pérez",
+  "nombre": "Juan Pérez",
   "telefono": "3101112233",
-  "email": "juan.nuevo@gmail.com",
-  "direccion": "Cra 5 # 10-20",
-  "ciudad": "Cali"
+  "email": "juan@gmail.com",
+  "ciudad": "Bogotá"
 }
 
 ###
 DELETE http://127.0.0.1:8000/zapatos/cli_borrar/11
 
 ###
-#  PEDIDOS
-
-GET http://127.0.0.1:8000/zapatos/ped_all
-
-###
-GET http://127.0.0.1:8000/zapatos/ped/1
+### VENTAS
+GET http://127.0.0.1:8000/zapatos/ven_all
 
 ###
-POST http://127.0.0.1:8000/zapatos/ped_add
+GET http://127.0.0.1:8000/zapatos/ven/1
+
+###
+POST http://127.0.0.1:8000/zapatos/ven_add
 Content-Type: application/json
 
 {
+  "fecha": "2026-04-03",
+  "total": 350000,
   "id_cliente": 1,
-  "fecha_pedido": "2025-03-14",
-  "estado": "Pendiente",
-  "total": 0
+  "id_usuario": 1
 }
 
 ###
-PUT http://127.0.0.1:8000/zapatos/ped_update/1
+PUT http://127.0.0.1:8000/zapatos/ven_update/1
 Content-Type: application/json
 
 {
+  "fecha": "2026-04-03",
+  "total": 700000,
   "id_cliente": 1,
-  "fecha_pedido": "2025-03-14",
-  "estado": "Entregado",
-  "total": 1470000
+  "id_usuario": 1
 }
 
 ###
-DELETE http://127.0.0.1:8000/zapatos/ped_borrar/11
+DELETE http://127.0.0.1:8000/zapatos/ven_borrar/6
 
 ###
-
-#  PRODUCTOS
-GET http://127.0.0.1:8000/zapatos/prod_all
-
-###
-GET http://127.0.0.1:8000/zapatos/prod/1
+### USUARIOS
+GET http://127.0.0.1:8000/zapatos/usr_all
 
 ###
-POST http://127.0.0.1:8000/zapatos/prod_add
+POST http://127.0.0.1:8000/zapatos/usr_add
 Content-Type: application/json
 
 {
-  "nombre": "Air Jordan 1 High OG",
-  "marca": "Nike",
-  "categoria": "Lifestyle",
-  "talla": 42.0,
-  "color": "Rojo/Negro",
-  "precio": 950000,
-  "stock": 5,
-  "import_style": "Importado",
-  "id_proveedor": 1
+  "nombre": "Carlos Empleado",
+  "email": "carlos@gmail.com",
+  "contrasena": "1234",
+  "rol": "empleado"
 }
-
-###
-PUT http://127.0.0.1:8000/zapatos/prod_update/1
-Content-Type: application/json
-
-{
-  "nombre": "Air Jordan 1 High OG",
-  "marca": "Nike",
-  "categoria": "Lifestyle",
-  "talla": 43.0,
-  "color": "Rojo/Negro",
-  "precio": 980000,
-  "stock": 8,
-  "import_style": "Importado",
-  "id_proveedor": 1
-}
-
-###
-DELETE http://127.0.0.1:8000/zapatos/prod_borrar/21

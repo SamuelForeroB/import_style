@@ -1,0 +1,59 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand"><h2>Import Style</h2><p>Panel de Control</p></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" routerLink="/dashboard"><span class="icon">📊</span> Dashboard</a>
+      <a class="nav-item" routerLink="/productos"><span class="icon">👟</span> Productos</a>
+      <a class="nav-item" routerLink="/pedidos"><span class="icon">🛒</span> Pedidos</a>
+      <a class="nav-item" routerLink="/clientes"><span class="icon">👥</span> Clientes</a>
+      <a class="nav-item active" routerLink="/proveedores"><span class="icon">🚚</span> Proveedores</a>
+      <button class="nav-item" (click)="logout()"><span class="icon">🚪</span> Cerrar Sesión</button>
+    </nav>
+  </aside>
+  <main class="main">
+    <div class="page-header"><h1>Proveedores</h1><p>Gestiona los proveedores de zapatos</p></div>
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>Proveedores ({{ proveedores.length }})</h3>
+        <button class="btn btn-gold" (click)="abrirModal()">+ Agregar Proveedor</button>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Nombre</th><th>Contacto</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of proveedores">
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.contacto }}</td>
+            <td>{{ p.telefono }}</td>
+            <td>{{ p.email }}</td>
+            <td>{{ p.ciudad }}</td>
+            <td>
+              <button class="btn btn-outline btn-sm" (click)="editar(p)" style="margin-right:6px">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="eliminar(p.id_proveedor)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="modal">
+    <h3>{{ editando ? 'Editar Proveedor' : 'Nuevo Proveedor' }}</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Nombre</label><input [(ngModel)]="form.nombre" /></div>
+      <div class="form-group"><label>Contacto</label><input [(ngModel)]="form.contacto" /></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Teléfono</label><input [(ngModel)]="form.telefono" /></div>
+      <div class="form-group"><label>Ciudad</label><input [(ngModel)]="form.ciudad" /></div>
+    </div>
+    <div class="form-group"><label>Email</label><input [(ngModel)]="form.email" /></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" (click)="mostrarModal = false">Cancelar</button>
+      <button class="btn btn-gold" (click)="guardar()">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+    </div>
+  </div>
+</div>

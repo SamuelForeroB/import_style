@@ -1,0 +1,130 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>Import Style</h2>
+      <p>Panel de Control</p>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" routerLink="/dashboard"><span class="icon">📊</span> Dashboard</a>
+      <a class="nav-item active" routerLink="/productos"><span class="icon">👟</span> Productos</a>
+      <a class="nav-item" routerLink="/pedidos"><span class="icon">🛒</span> Pedidos</a>
+      <a class="nav-item" routerLink="/clientes"><span class="icon">👥</span> Clientes</a>
+      <a class="nav-item" routerLink="/proveedores"><span class="icon">🚚</span> Proveedores</a>
+      <button class="nav-item" (click)="logout()"><span class="icon">🚪</span> Cerrar Sesión</button>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>Productos</h1>
+      <p>Gestiona el inventario de zapatos</p>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>Inventario ({{ productos.length }} productos)</h3>
+        <button class="btn btn-gold" (click)="abrirModal()">+ Agregar Producto</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Categoría</th>
+            <th>Talla</th>
+            <th>Color</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productos">
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.marca }}</td>
+            <td>{{ p.categoria }}</td>
+            <td>{{ p.talla }}</td>
+            <td>{{ p.color }}</td>
+            <td>${{ p.precio | number }}</td>
+            <td><span [class]="p.stock < 5 ? 'stock-low' : 'stock-ok'">{{ p.stock }}</span></td>
+            <td>
+              <span class="badge" [ngClass]="p.import_style === 'Importado' ? 'badge-warning' : p.import_style === 'Exclusivo' ? 'badge-success' : 'badge-danger'">
+                {{ p.import_style }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-outline btn-sm" (click)="editarProducto(p)" style="margin-right:6px">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="eliminarProducto(p.id_producto)">Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="productos.length === 0">
+            <td colspan="9" style="text-align:center; color: var(--text-muted); padding:20px">⏳ Cargando...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="modal">
+    <h3>{{ editando ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input [(ngModel)]="form.nombre" placeholder="Air Max 90" />
+      </div>
+      <div class="form-group">
+        <label>Marca</label>
+        <select [(ngModel)]="form.marca">
+          <option value="Nike">Nike</option>
+          <option value="Adidas">Adidas</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Categoría</label>
+        <input [(ngModel)]="form.categoria" placeholder="Running" />
+      </div>
+      <div class="form-group">
+        <label>Talla</label>
+        <input [(ngModel)]="form.talla" type="number" placeholder="42" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Color</label>
+        <input [(ngModel)]="form.color" placeholder="Blanco" />
+      </div>
+      <div class="form-group">
+        <label>Precio</label>
+        <input [(ngModel)]="form.precio" type="number" placeholder="350000" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Stock</label>
+        <input [(ngModel)]="form.stock" type="number" placeholder="10" />
+      </div>
+      <div class="form-group">
+        <label>Tipo</label>
+        <select [(ngModel)]="form.import_style">
+          <option value="Nacional">Nacional</option>
+          <option value="Importado">Importado</option>
+          <option value="Exclusivo">Exclusivo</option>
+          <option value="Edición Limitada">Edición Limitada</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Proveedor ID</label>
+      <input [(ngModel)]="form.id_proveedor" type="number" placeholder="1" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn btn-gold" (click)="guardar()">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+    </div>
+  </div>
+</div>
