@@ -2,19 +2,28 @@
   <canvas id="bg-canvas"></canvas>
   <div class="login-card">
     <div class="login-logo">
-      <div class="logo-icon">Bienvenido</div>
+      <div class="logo-container">
+        <img src="./favicon.ico" alt="Import Style" class="logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+        <div class="logo-placeholder" style="display:none">Bienvenido</div>
+      </div>
       <h1>Import Style</h1>
       <p>GESTIÓN DE INVENTARIO</p>
     </div>
     <div class="form-group">
       <label>Usuario</label>
-      <input type="email" [(ngModel)]="email" placeholder="correo&#64;gmail.com" />
+      <input type="email" [(ngModel)]="email" placeholder="correo&#64;gmail.com" (keyup.enter)="login()" />
     </div>
     <div class="form-group">
       <label>Contraseña</label>
       <input type="password" [(ngModel)]="password" placeholder="••••••••" (keyup.enter)="login()" />
     </div>
-    <button class="btn-login" (click)="login()">INGRESAR</button>
+    <button class="btn-login" (click)="login()" [disabled]="cargando">
+      {{ cargando ? 'INGRESANDO...' : 'INGRESAR' }}
+    </button>
     <p class="login-error" *ngIf="error">{{ error }}</p>
+    <p class="login-registro">
+      ¿Eres administrador? <a routerLink="/registro">Crear cuenta</a>
+    </p>
   </div>
 </div>

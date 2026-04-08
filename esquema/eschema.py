@@ -12,7 +12,6 @@ class Proveedor(BaseModel):
     email:    Optional[str] = None
     ciudad:   Optional[str] = None
     pais:     Optional[str] = None
-
     class Config:
         orm_mode = True
 
@@ -25,7 +24,6 @@ class Cliente(BaseModel):
     email:     Optional[str] = None
     direccion: Optional[str] = None
     ciudad:    Optional[str] = None
-
     class Config:
         orm_mode = True
 
@@ -41,7 +39,6 @@ class Producto(BaseModel):
     stock:        int
     import_style: Optional[str] = None
     id_proveedor: Optional[int] = None
-
     class Config:
         orm_mode = True
 
@@ -52,7 +49,6 @@ class Pedido(BaseModel):
     fecha_pedido: Optional[date] = None
     estado:       Optional[str] = None
     total:        Optional[Decimal] = None
-
     class Config:
         orm_mode = True
 
@@ -63,6 +59,28 @@ class DetallePedido(BaseModel):
     id_producto:     int
     cantidad:        int
     precio_unitario: Decimal
-
     class Config:
         orm_mode = True
+
+
+class UsuarioCreate(BaseModel):
+    nombre:    str
+    email:     str
+    contrasena: str
+    rol:       Optional[str] = "empleado"
+
+
+class UsuarioResponse(BaseModel):
+    id_usuario: int
+    nombre:     str
+    email:      str
+    rol:        str
+    class Config:
+        orm_mode = True
+
+
+class LoginResponse(BaseModel):
+    access_token: str
+    token_type:   str
+    nombre:       str
+    rol:          str

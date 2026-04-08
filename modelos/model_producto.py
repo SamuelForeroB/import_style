@@ -54,3 +54,12 @@ class DetallePedido(Base):
     id_producto     = Column(Integer, ForeignKey("productos.id_producto"), nullable=False)
     cantidad        = Column(Integer, nullable=False, default=1)
     precio_unitario = Column(Numeric(10, 2), nullable=False)
+
+
+class Usuario(Base):
+    __tablename__ = "usuarios"
+    id_usuario = Column(Integer, primary_key=True, autoincrement=True)
+    nombre     = Column(String(100), nullable=False)
+    email      = Column(String(100), nullable=False, unique=True)
+    contrasena = Column(String(255), nullable=False)
+    rol        = Column(Enum("dueño", "empleado", "admin"), default="empleado")

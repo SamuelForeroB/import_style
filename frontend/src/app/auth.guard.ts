@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 export const authGuard = () => {
   const router = inject(Router);
-  const usuario = localStorage.getItem('usuario');
-  if (usuario) return true;
+  const token = localStorage.getItem('token');
+  if (token) return true;
   router.navigate(['/login']);
   return false;
 };

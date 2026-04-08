@@ -5,7 +5,7 @@
       <p>Panel de Control</p>
     </div>
     <nav class="sidebar-nav">
-      <a class="nav-item active" routerLink="/dashboard"><span class="icon">📊</span> Dashboard</a>
+      <a class="nav-item active" routerLink="/dashboard"><span class="icon">📊</span> Información General</a>
       <a class="nav-item" routerLink="/productos"><span class="icon">👟</span> Productos</a>
       <a class="nav-item" routerLink="/pedidos"><span class="icon">🛒</span> Pedidos</a>
       <a class="nav-item" routerLink="/clientes"><span class="icon">👥</span> Clientes</a>
@@ -16,13 +16,13 @@
 
   <main class="main">
     <div class="page-header">
-      <h1>Dashboard</h1>
-      <p>Bienvenido, {{ usuario?.nombre }} — Datos en tiempo real</p>
+      <h1>Información General</h1>
+      <p>Bienvenido, {{ usuario?.nombre }} — Resumen del negocio</p>
     </div>
 
     <div class="cards-row">
       <div class="stat-card">
-        <div class="label">Productos</div>
+        <div class="label">Total Productos</div>
         <div class="value">{{ productos.length }}</div>
         <div class="sub">en inventario</div>
       </div>
@@ -43,11 +43,73 @@
       </div>
       <div class="stat-card">
         <div class="label">Valor Inventario</div>
-        <div class="value" style="font-size:20px">${{ totalInventario | number }}</div>
+        <div class="value" style="font-size:18px">${{ totalInventario | number }}</div>
         <div class="sub">en stock total</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Total Ventas</div>
+        <div class="value" style="font-size:18px; color: var(--success)">${{ totalVentas | number }}</div>
+        <div class="sub">en pedidos</div>
       </div>
     </div>
 
+    <!-- FILTROS -->
+    <div class="table-card" style="margin-bottom: 20px;">
+      <div class="table-card-header">
+        <h3>🔍 Filtros de Productos</h3>
+        <div style="display:flex; gap:10px;">
+          <select class="btn btn-outline" (change)="filtrarPor($event)">
+            <option value="">Ordenar por...</option>
+            <option value="precio_asc">Precio: menor a mayor</option>
+            <option value="precio_desc">Precio: mayor a menor</option>
+            <option value="stock_asc">Stock: menor a mayor</option>
+            <option value="stock_desc">Stock: mayor a menor</option>
+            <option value="nombre">Nombre A-Z</option>
+          </select>
+          <select class="btn btn-outline" (change)="filtrarMarca($event)">
+            <option value="">Todas las marcas</option>
+            <option value="Nike">Nike</option>
+            <option value="Adidas">Adidas</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA PRODUCTOS -->
+    <div class="table-card" style="margin-bottom: 20px;">
+      <div class="table-card-header">
+        <h3>👟 Inventario ({{ productosFiltrados.length }} productos)</h3>
+        <a class="btn btn-gold btn-sm" routerLink="/productos">Gestionar</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Talla</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productosFiltrados">
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.marca }}</td>
+            <td>{{ p.talla }}</td>
+            <td>${{ p.precio | number }}</td>
+            <td><span [class]="p.stock < 5 ? 'stock-low' : 'stock-ok'">{{ p.stock }}</span></td>
+            <td>
+              <span class="badge" [ngClass]="p.import_style === 'Importado' ? 'badge-warning' : p.import_style === 'Exclusivo' ? 'badge-success' : 'badge-danger'">
+                {{ p.import_style }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- STOCK BAJO -->
     <div class="table-card">
       <div class="table-card-header">
         <h3>⚠️ Productos con Stock Bajo</h3>
