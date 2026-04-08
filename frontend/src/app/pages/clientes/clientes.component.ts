@@ -16,11 +16,14 @@ export class ClientesComponent implements OnInit, OnDestroy {
   editando = false;
   idEditando: number | null = null;
   intervalo: any;
+  esAdmin = false;
   form = { nombre: '', apellido: '', telefono: '', email: '', direccion: '', ciudad: '' };
 
   constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+    this.esAdmin = usuario.rol === 'admin' || usuario.rol === 'dueño';
     this.cargar();
     this.intervalo = setInterval(() => this.cargar(), 2000);
   }

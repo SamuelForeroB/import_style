@@ -3,8 +3,9 @@
   <div class="login-card">
     <div class="login-logo">
       <h1>Import Style</h1>
-      <p>CREAR CUENTA ADMIN</p>
+      <p>CREAR CUENTA</p>
     </div>
+
     <div class="form-group">
       <label>Nombre completo</label>
       <input [(ngModel)]="form.nombre" placeholder="Tu nombre" />
@@ -21,10 +22,20 @@
       <label>Confirmar contraseña</label>
       <input type="password" [(ngModel)]="form.confirmar" placeholder="••••••••" />
     </div>
+
     <div class="form-group">
+      <label>Tipo de cuenta</label>
+      <select [(ngModel)]="form.rol">
+        <option value="usuario">Usuario — solo ver</option>
+        <option value="admin">Administrador — control total</option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngIf="form.rol === 'admin'">
       <label>Código de administrador</label>
       <input type="password" [(ngModel)]="form.codigoAdmin" placeholder="Código secreto" />
     </div>
+
     <button class="btn-login" (click)="registrar()" [disabled]="cargando">
       {{ cargando ? 'CREANDO...' : 'CREAR CUENTA' }}
     </button>

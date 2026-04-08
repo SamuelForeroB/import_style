@@ -14,11 +14,14 @@ export class PedidosComponent implements OnInit, OnDestroy {
   pedidos: any[] = [];
   mostrarModal = false;
   intervalo: any;
+  esAdmin = false;
   form = { id_cliente: 1, fecha_pedido: '', estado: 'Pendiente', total: 0 };
 
   constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+    this.esAdmin = usuario.rol === 'admin' || usuario.rol === 'dueño';
     this.cargar();
     this.intervalo = setInterval(() => this.cargar(), 2000);
   }

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,12 +12,12 @@ import { ApiService } from '../../services/api.service';
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent implements AfterViewInit {
-  form = { nombre: '', email: '', contrasena: '', confirmar: '', codigoAdmin: '' };
+  form = { nombre: '', email: '', contrasena: '', confirmar: '', rol: 'usuario', codigoAdmin: '' };
   error = '';
   cargando = false;
-  CODIGO_ADMIN = 'ADMIN123';
+  CODIGO_ADMIN = 'IMPORT2024';
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -65,23 +65,37 @@ export class RegistroComponent implements AfterViewInit {
 
   registrar() {
     if (!this.form.nombre || !this.form.email || !this.form.contrasena) {
-      this.error = 'Todos los campos son obligatorios'; return;
+      this.error = 'Todos los campos son obligatorios';
+      this.cdr.detectChanges();
+      return;
     }
     if (this.form.contrasena !== this.form.confirmar) {
-      this.error = 'Las contraseñas no coinciden'; return;
+      this.error = 'Las contraseñas no coinciden';
+      this.cdr.detectChanges();
+      return;
     }
-    if (this.form.codigoAdmin !== this.CODIGO_ADMIN) {
-      this.error = 'Código de administrador incorrecto'; return;
+    if (this.form.rol === 'admin' && this.form.codigoAdmin !== this.CODIGO_ADMIN) {
+      this.error = '❌ Código de administrador incorrecto';
+      this.cdr.detectChanges();
+      return;
     }
     this.cargando = true;
+    this.error = '';
     this.api.registro({
       nombre: this.form.nombre,
       email: this.form.email,
       contrasena: this.form.contrasena,
-      rol: 'admin'
+      rol: this.form.rol
     }).subscribe({
-      next: () => { alert('✅ Cuenta creada correctamente'); this.router.navigate(['/login']); },
-      error: (e: any) => { this.error = e.error?.detail || 'Error al registrar'; this.cargando = false; }
+      next: () => {
+        alert('✅ Cuenta creada correctamente');
+        this.router.navigate(['/login']);
+      },
+      error: (e: any) => {
+        this.error = e.error?.detail || '❌ Error al registrar';
+        this.cargando = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 }
