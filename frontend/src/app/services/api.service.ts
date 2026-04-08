@@ -4,7 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private base = 'http://127.0.0.1:8000/zapatos';
+  private base = 'https://importstyle-production.up.railway.app/zapatos';
 
   constructor(private http: HttpClient) {}
 
