@@ -1,9 +1,6 @@
 {
   "version": 2,
-  "public": true,
-  "framework": "angular",
-  "rootDirectory": "frontend",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/frontend/index.html" }
   ]
 }
