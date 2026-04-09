@@ -62,4 +62,4 @@ class Usuario(Base):
     nombre     = Column(String(100), nullable=False)
     email      = Column(String(100), nullable=False, unique=True)
     contrasena = Column(String(255), nullable=False)
-    rol        = Column(Enum("dueño", "empleado", "admin"), default="empleado")
+    rol        = Column(Enum("dueño", "empleado", "admin", "usuario"), default="usuario")
