@@ -15,11 +15,11 @@
     <div class="table-card">
       <div class="table-card-header">
         <h3>Clientes ({{ clientes.length }})</h3>
-        <button class="btn btn-gold" (click)="abrirModal()">+ Agregar Cliente</button>
+        <button class="btn btn-gold" (click)="abrirModal()" *ngIf="esAdmin">+ Agregar Cliente</button>
       </div>
       <table>
         <thead>
-          <tr><th>Nombre</th><th>Apellido</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Acciones</th></tr>
+          <tr><th>Nombre</th><th>Apellido</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th *ngIf="esAdmin">Acciones</th></tr>
         </thead>
         <tbody>
           <tr *ngFor="let c of clientes">
@@ -28,7 +28,7 @@
             <td>{{ c.telefono }}</td>
             <td>{{ c.email }}</td>
             <td>{{ c.ciudad }}</td>
-            <td>
+            <td *ngIf="esAdmin">
               <button class="btn btn-outline btn-sm" (click)="editar(c)" style="margin-right:6px">Editar</button>
               <button class="btn btn-danger btn-sm" (click)="eliminar(c.id_cliente)">Eliminar</button>
             </td>
@@ -39,7 +39,7 @@
   </main>
 </div>
 
-<div class="modal-overlay" *ngIf="mostrarModal">
+<div class="modal-overlay" *ngIf="mostrarModal && esAdmin">
   <div class="modal">
     <h3>{{ editando ? 'Editar Cliente' : 'Nuevo Cliente' }}</h3>
     <div class="form-row">

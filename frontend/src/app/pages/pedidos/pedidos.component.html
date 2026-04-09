@@ -15,11 +15,11 @@
     <div class="table-card">
       <div class="table-card-header">
         <h3>Pedidos ({{ pedidos.length }})</h3>
-        <button class="btn btn-gold" (click)="abrirModal()">+ Nuevo Pedido</button>
+        <button class="btn btn-gold" (click)="abrirModal()" *ngIf="esAdmin">+ Nuevo Pedido</button>
       </div>
       <table>
         <thead>
-          <tr><th>ID</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Total</th><th>Acciones</th></tr>
+          <tr><th>ID</th><th>Cliente</th><th>Fecha</th><th>Estado</th><th>Total</th><th *ngIf="esAdmin">Acciones</th></tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of pedidos">
@@ -32,7 +32,9 @@
               </span>
             </td>
             <td>${{ p.total | number }}</td>
-            <td><button class="btn btn-danger btn-sm" (click)="eliminar(p.id_pedido)">Eliminar</button></td>
+            <td *ngIf="esAdmin">
+              <button class="btn btn-danger btn-sm" (click)="eliminar(p.id_pedido)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -40,7 +42,7 @@
   </main>
 </div>
 
-<div class="modal-overlay" *ngIf="mostrarModal">
+<div class="modal-overlay" *ngIf="mostrarModal && esAdmin">
   <div class="modal">
     <h3>Nuevo Pedido</h3>
     <div class="form-group"><label>ID Cliente</label><input [(ngModel)]="form.id_cliente" type="number" /></div>
