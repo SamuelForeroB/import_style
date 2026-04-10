@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
     this.cargar();
-    this.intervalo = setInterval(() => this.cargar(), 2000);
+    this.intervalo = setInterval(() => this.cargar(), 30000);
   }
 
   ngOnDestroy() { clearInterval(this.intervalo); }

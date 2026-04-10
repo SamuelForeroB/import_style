@@ -25,7 +25,7 @@ export class ProveedoresComponent implements OnInit, OnDestroy {
     const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
     this.esAdmin = usuario.rol === 'admin' || usuario.rol === 'dueño';
     this.cargar();
-    this.intervalo = setInterval(() => this.cargar(), 2000);
+    this.intervalo = setInterval(() => this.cargar(), 30000);
   }
 
   ngOnDestroy() { clearInterval(this.intervalo); }
